@@ -2,7 +2,7 @@ object bombon {
     const property precio = 5
     const property sabor = frutilla
     var property peso = 15
-    const property gluten = 0
+    const property gluten = false
     
     method morder() {
         peso = (peso*0.8) -1
@@ -13,7 +13,7 @@ object alfajor {
     const property precio = 12
     const property sabor = chocolate
     var property peso = 300
-    const property gluten = 1
+    const property gluten = true
 
     method morder() {
         peso *= 0.8
@@ -24,7 +24,7 @@ object caramelo {
     const property precio = 1
     const property sabor = frutilla
     var property peso = 5
-    const property gluten = 0
+    const property gluten = false
 
     method morder() {
         peso -= 1
@@ -35,7 +35,7 @@ object chupetin {
     const property precio = 2
     const property sabor = naranja
     var property peso = 7
-    const property gluten = 0
+    const property gluten = false
 
     method morder() {
         if (peso < 2){
@@ -48,7 +48,7 @@ object oblea {
     const property precio = 5
     const property sabor = vainilla
     var property peso = 250
-    const property gluten = 1
+    const property gluten = true
 
     method morder() {
         if (peso > 70){
@@ -113,11 +113,11 @@ object tuttiFrutti {
         if (opcion == 0){
             // Libre de gluten.
             precio = 7
-            gluten = 0
+            gluten = false
         }
         else{
             precio = 10
-            gluten = 1
+            gluten = true
         }
     }
 
@@ -142,3 +142,21 @@ object naranja {
     }
 }
 object vainilla {}
+
+object mariano {
+    method comprar(unaGolosina) {}
+
+    method desechar(unaGolosina) {}
+
+    method probarGolosinas() {}
+
+    method hayGolosinaSinTACC() {}
+
+    method preciosCuidados() {}
+
+    method golosinaDeSabor(unSabor) {}
+
+    method golosinasDeSabor(unSabor) {}
+
+    method sabores() {}
+}

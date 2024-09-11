@@ -1,46 +1,71 @@
 import golosinas.*
 
-test "valores iniciales" {
-    // Bombón
+
+test "Bombón" {
     assert.equals(5, bombon.precio())
-    assert.equals("frutilla", bombon.sabor())
+    assert.equals(frutilla, bombon.sabor())
     assert.equals(15, bombon.peso())
-    assert.equals(0, bombon.gluten())
+    assert.equals(false, bombon.gluten())
+}
 
-    // Alfajor
+test "Alfajor" {
     assert.equals(12, alfajor.precio())
-    assert.equals("chocolate", alfajor.sabor())
+    assert.equals(chocolate, alfajor.sabor())
     assert.equals(300, alfajor.peso())
-    assert.equals(1, alfajor.gluten())
+    assert.equals(true, alfajor.gluten())
+}
 
-    // Caramelo
+test "Caramelo" {
     assert.equals(1, caramelo.precio())
-    assert.equals("frutilla", caramelo.sabor())
+    assert.equals(frutilla, caramelo.sabor())
     assert.equals(5, caramelo.peso())
-    assert.equals(0, caramelo.gluten())
+    assert.equals(false, caramelo.gluten())
+}
 
-    // Chupetín
+test "Chupetín" {
     assert.equals(2, chupetin.precio())
-    assert.equals("naranja", chupetin.sabor())
+    assert.equals(naranja, chupetin.sabor())
     assert.equals(7, chupetin.peso())
-    assert.equals(0, chupetin.gluten())
+    assert.equals(false, chupetin.gluten())
+}
 
-    // Oblea
+test "Oblea" {
     assert.equals(5, oblea.precio())
-    assert.equals("vainilla", oblea.sabor())
+    assert.equals(vainilla, oblea.sabor())
     assert.equals(250, oblea.peso())
-    assert.equals(1, oblea.gluten())
+    assert.equals(true, oblea.gluten())
+}
 
-    // Chocolatín
+test "Chocolatín" {
     chocolatin.pesoInicial(50)
     assert.equals(25, chocolatin.precio())
-    assert.equals("chocolate", chocolatin.sabor())
+    assert.equals(chocolate, chocolatin.sabor())
     assert.equals(50, chocolatin.peso())
     assert.equals(1, chocolatin.gluten())
-
-    // Bombón
-    assert.equals(5, bombon.precio())
-    assert.equals("frutilla", bombon.sabor())
-    assert.equals(15, bombon.peso())
-    assert.equals(0, bombon.gluten())
 }
+
+test "Golosina Bañada" {
+    golosinaBanada.golosinaBase(bombon)
+    assert.equals(5+2, golosinaBanada.precio())
+    assert.equals(frutilla, golosinaBanada.sabor())
+    assert.equals(15+4, golosinaBanada.peso())
+    assert.equals(false, golosinaBanada.gluten())
+}
+
+test "Pastilla Tutti-Frutti" {
+    assert.equals(5, tuttiFrutti.peso())
+    tuttiFrutti.gluten(0)
+    
+    assert.equals(7, tuttiFrutti.precio())
+    assert.equals(5, tuttiFrutti.peso())
+    assert.equals(false, tuttiFrutti.gluten())
+}
+
+/* Parte 2.
+Map transforma x a y.
+personas.map( {persona => persona.edad()} )
+Ingresa una lista y sale otra.
+
+.asSet()
+.asList()
+*/
