@@ -1,128 +1,217 @@
 object bombon {
-    const property precio = 5
-    const property sabor = frutilla
-    var property peso = 15
-    const property gluten = false
+    method precio() = 5
+    method sabor() = frutilla
+    method peso() = _peso
+    method gluten() = false
+    var _peso = 15
     
     method morder() {
-        peso = (peso*0.8) -1
+        _peso = (_peso*0.8) - 1
+    }
+
+    method morderBanado() {
+        self.morder()
+        _peso -= 2
+    }
+
+    method banarGolosina() {
+        _peso += 4
     }
 }
 
 object alfajor {
-    const property precio = 12
-    const property sabor = chocolate
-    var property peso = 300
-    const property gluten = true
+    method precio() = 12
+    method sabor() = chocolate
+    method peso() = _peso
+    method gluten() = true
+    var _peso = 300
 
     method morder() {
-        peso *= 0.8
+        _peso *= 0.8
+    }
+
+    method morderBanado() {
+        self.morder()
+        _peso -= 2
+    }
+
+    method banarGolosina() {
+        _peso += 4
     }
 }
 
 object caramelo {
-    const property precio = 1
-    const property sabor = frutilla
-    var property peso = 5
-    const property gluten = false
+    method precio() = 1
+    method sabor() = frutilla
+    method peso() =_peso
+    method gluten() = false
+    var _peso = 5
 
     method morder() {
-        peso -= 1
+        _peso -= 1
+    }
+
+    method morderBanado() {
+        self.morder()
+        _peso -= 2
+    }
+
+    method banarGolosina() {
+        _peso += 4
     }
 }
 
 object chupetin {
-    const property precio = 2
-    const property sabor = naranja
-    var property peso = 7
-    const property gluten = false
+    method precio() = 2
+    method sabor() = naranja
+    method peso() = _peso
+    method gluten() = false
+    var _peso = 7
 
     method morder() {
-        if (peso < 2){
-            peso *= 0.9
+        if (_peso >= 2){
+            _peso *= 0.9
         }
+        return _peso
+    }
+
+    method morderBanado() {
+        self.morder()
+        _peso -= 2
+        return _peso
+    }
+
+    method banarGolosina() {
+        _peso += 4
     }
 }
 
 object oblea {
-    const property precio = 5
-    const property sabor = vainilla
-    var property peso = 250
-    const property gluten = true
+    method precio() = 5
+    method sabor() = vainilla
+    method peso() = _peso
+    method gluten() = true
+    var _peso = 250
 
     method morder() {
-        if (peso > 70){
-            peso *= 0.5
+        if (_peso > 70){
+            _peso *= 0.5
         }
         else{
-            peso *= 0.75
+            _peso *= 0.75
         }
     }
+
+    method morderBanado() {
+        self.morder()
+        _peso -= 2
+    }
+
+    method banarGolosina() {
+        _peso += 4
+    } 
 }
 
-// Si pongo null no pasan los test.
 object chocolatin {
-    var property precio = 0
-    const property sabor = chocolate
-    var property peso = 0
-    const property gluten = 1
+    method precio() = _precio
+    method sabor() = chocolate
+    method peso() = _peso
+    method gluten() = true
+    var _peso = 0
+    var _precio = 0
 
     method pesoInicial(grs) {
-        peso = grs
-        precio = peso*0.5
+        _peso = grs
+        _precio = _peso*0.5
     }
 
     method morder() {
-        peso -= 2
+        _peso -= 2
+        return _peso
+    }
+
+    method morderBanado() {
+        self.morder()
+        _peso -= 2
+        return _peso
+    }
+
+    method banarGolosina() {
+        _peso += 4
     }
 }
 
 object golosinaBanada {
-    var property precio = null
-    var property sabor = null
-    var property peso = null
-    var property gluten = null
-    var property golosinaAux = null
+    method precio() = _precio
+    method sabor() = _sabor
+    method peso() = _peso
+    method gluten() = _gluten
+
+    var _precio = null
+    var _sabor = null
+    var _peso = null
+    var _gluten = null
+    var golosinaAux = null
+    var mordidas = 1
 
     method golosinaBase(golosina) {
-        precio = golosina.precio() + 2
-        sabor = golosina.sabor()
-        peso = golosina.peso() + 4
-        gluten = golosina.gluten()
+        golosina.banarGolosina()
+        _precio = golosina.precio() + 2
+        _sabor = golosina.sabor()
+        _peso = golosina.peso() // No sumo porque ya bañé la golosina.
+        _gluten = golosina.gluten()
         golosinaAux = golosina
+        mordidas = 1
     }
 
     method morder() {
-        var mordidas = 1
-        peso = golosinaAux.morder()
         if (mordidas >= 0){
-            peso -= 2
+            _peso = golosinaAux.morderBanado()
             mordidas -= 1
         }
+        else{
+            _peso = golosinaAux.morder()
+        }
+        _sabor = golosinaAux.sabor()
     }
 }
 
 object tuttiFrutti {
-    var property precio = null
-    var property sabor = frutilla
-    var property index = 0
-    var property peso = 5
-    var property gluten = null
+    method precio() = _precio
+    method sabor() = _sabor
+    method peso() = _peso
+    method gluten() = _gluten
+
+    var _precio = null
+    var _sabor = frutilla
+    var _peso = 5
+    var _gluten = null
 
     method gluten(opcion) {
         if (opcion == 0){
             // Libre de gluten.
-            precio = 7
-            gluten = false
+            _precio = 7
+            _gluten = false
         }
         else{
-            precio = 10
-            gluten = true
+            _precio = 10
+            _gluten = true
         }
     }
 
     method morder() {
-        sabor = sabor.siguiente()
+        _sabor = _sabor.siguiente()
+        return _peso
+    }
+
+    method morderBanado() {
+        self.morder()
+        _peso -= 2
+        return _peso
+    }
+
+    method banarGolosina() {
+        _peso += 4
     }
 }
 
@@ -144,9 +233,15 @@ object naranja {
 object vainilla {}
 
 object mariano {
-    method comprar(unaGolosina) {}
+    const property bolsaGolosinas = #{}
 
-    method desechar(unaGolosina) {}
+    method comprar(unaGolosina) {
+        bolsaGolosinas.add(unaGolosina)
+    }
+
+    method desechar(unaGolosina) {
+        bolsaGolosinas.pop(unaGolosina)
+    }
 
     method probarGolosinas() {}
 
