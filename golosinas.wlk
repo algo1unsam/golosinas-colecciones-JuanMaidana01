@@ -7,11 +7,13 @@ object bombon {
     
     method morder() {
         _peso = (_peso*0.8) - 1
+        return _peso
     }
 
     method morderBanado() {
         self.morder()
         _peso -= 2
+        return _peso
     }
 
     method banarGolosina() {
@@ -28,11 +30,13 @@ object alfajor {
 
     method morder() {
         _peso *= 0.8
+        return _peso
     }
 
     method morderBanado() {
         self.morder()
         _peso -= 2
+        return _peso
     }
 
     method banarGolosina() {
@@ -49,11 +53,13 @@ object caramelo {
 
     method morder() {
         _peso -= 1
+        return _peso
     }
 
     method morderBanado() {
         self.morder()
         _peso -= 2
+        return _peso
     }
 
     method banarGolosina() {
@@ -96,15 +102,18 @@ object oblea {
     method morder() {
         if (_peso > 70){
             _peso *= 0.5
+            return _peso
         }
         else{
             _peso *= 0.75
+            return _peso
         }
     }
 
     method morderBanado() {
         self.morder()
         _peso -= 2
+        return _peso
     }
 
     method banarGolosina() {
@@ -240,18 +249,61 @@ object mariano {
     }
 
     method desechar(unaGolosina) {
-        bolsaGolosinas.pop(unaGolosina)
+        bolsaGolosinas.remove(unaGolosina)
     }
 
-    method probarGolosinas() {}
+    method probarGolosinas() {
+        bolsaGolosinas.forEach { golosina => golosina.morder()}
+    }
 
-    method hayGolosinaSinTACC() {}
+    method hayGolosinaSinTACC() {
+        return bolsaGolosinas.any { golosina => not golosina.gluten()} // Acá pongo false por la forma de implementar el gluten. False -> Libre Gluten.
+    }
 
-    method preciosCuidados() {}
+    method preciosCuidados() {
+        return bolsaGolosinas.all { golosina => golosina.precio() <= 10}
+    }
 
-    method golosinaDeSabor(unSabor) {}
+    method golosinaDeSabor(unSabor) {
+        return bolsaGolosinas.findOrDefault ({ golosina => golosina.sabor() == unSabor}, false)
+    }
 
-    method golosinasDeSabor(unSabor) {}
+    method golosinasDeSabor(unSabor) {
+        const golosinasUnSabor = #{}
+        bolsaGolosinas.forEach { golosina => if(golosina.sabor() == unSabor){golosinasUnSabor.add(golosina)} }
+        return golosinasUnSabor
+    }
 
-    method sabores() {}
+    method sabores() {
+        const golosinasSabores = #{}
+        bolsaGolosinas.forEach { golosina => golosinasSabores.add(golosina.sabor()) }
+        return golosinasSabores
+    }
+
+    method golosinaMasCara() {
+        var masCaraPrecio = 0
+        var masCara = null
+        bolsaGolosinas.forEach { golosina => if(golosina.precio() > masCaraPrecio){
+            masCara = golosina
+            masCaraPrecio = golosina.precio()} }
+        return masCara
+    }
+
+    method pesoGolosinas() {
+        var pesoTotal = 0
+        bolsaGolosinas.forEach { golosina => pesoTotal += golosina.peso() }
+        return pesoTotal
+    }
+
+    method golosinasFaltantes(golosinasDeseadas) {
+        const golosinasQueFaltan = golosinasDeseadas.difference(bolsaGolosinas)
+        return golosinasQueFaltan
+    }
+
+    method gustosFaltantes(gustosDeseados) {
+        const bolsaGustos = #{}
+        bolsaGolosinas.forEach { golosina => bolsaGustos.add(golosina.sabor()) }
+        const gustosQueFaltan = gustosDeseados.difference(bolsaGustos)
+        return gustosQueFaltan
+    }
 }
